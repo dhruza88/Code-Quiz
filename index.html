@@ -1,19 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Code Quiz/title>
-  <link rel="stylesheet" href=".style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Code Quiz</title>
+
+</head>
+
+
+<header>
+    <H1>Welcome to a Quiz About German Shepherds</H1>
+    <button id="highscores">View Highscores</button>
+</header>
+
+<div id="quiz"></div>
+
+
+
+<body>
+    <div class="quiz-container" id="quiz">
+        <div class="quiz-header">
+            <h2 id="question">Question Text</h2>
+            <ul>
+                <li>
+                    <input type="radio" name="answer" id="a" class="answer">
+                    <label for="a" id="a_text">Answer</label>
+                </li>
+
+                <li>
+                    <input type="radio" name="answer" id="b" class="answer">
+                    <label for="b" id="b_text">Answer</label>
+                </li>
+
+                <li>
+                    <input type="radio" name="answer" id="c" class="answer">
+                    <label for="c" id="c_text">Answer</label>
+                </li>
+
+                <li>
+                    <input type="radio" name="answer" id="d" class="answer">
+                    <label for="d" id="d_text">Answer</label>
+                </li>
+
+            </ul>
+        </div>
+
+        <button id="submit">Submit</button>
+
+    </div>
+
+ 
 
 
 
 
+    <script src="script.js"></script>
+</body>
 
 
 
+<footer> ©️David Hruza 2022</footer>
 
 
-
-  <script src=".script.js"></script>
+</html>

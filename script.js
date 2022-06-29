@@ -3,9 +3,58 @@ function highScores() {
 
 }
 
-function Timer() {
+var timeEl = document.querySelector(".time");
+var timerbutEL= document.querySelector("#startquiz");
 
+var secondsLeft = 120;
+
+timerbutEL.addEventListener("click",function(event){
+    event.preventDefault()
+    setTime();
+
+})
+function setTime()
+{
+    var timeInterval = setInterval(function () 
+    {
+        // As long as the `timeLeft` is greater than 1
+        if (secondsLeft > 0) 
+        {
+        // Set the `textContent` of `timerEl` to show the remaining seconds
+        timeEl.textContent = secondsLeft + ' seconds remaining';
+        // Decrement `timeLeft` by 1
+        secondsLeft--;
+        } else
+        {
+        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+        timeEl.textContent = '';
+        // Use `clearInterval()` to stop the timer
+        clearInterval(timeInterval);
+        sendMessage("Times run out");
+     
+        }
+    }, 1000);
 }
+
+function sendMessage(){
+    alert("Bummer");
+}  
+
+// function setTime() 
+// {
+//     // Sets interval in variable
+//     var timerInterval = setInterval(function() {
+//       secondsLeft--;
+//       timeEl.textContent= secondsLeft
+  
+//       if(secondsLeft === 0) {
+//         // Stops execution of action at set interval
+//         clearInterval(timerInterval);
+        
+//       }
+  
+//    }, 100);
+//}
 
 const myQuestions = [
     {
@@ -113,6 +162,7 @@ submitButton.addEventListener('click', () =>
         }
 
         currentQuiz++
+        console.log(currentQuiz)
 
         if (currentQuiz < myQuestions.length) 
         {

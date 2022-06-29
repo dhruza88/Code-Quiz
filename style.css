@@ -8,11 +8,35 @@
 header{
     position: absolute;
     top: 0;
+    background-color:tan;
+    width:100%;
+    margin:0;
+
+}
+
+h1{
+    display:inline-block;
+    margin-left: 175px;
+}
+
+h2{
+    padding: 1rem;
+    text-align: center;
+    margin: 0
+}
+
+h3{
+    display:inline-block;
+    text-align: center;
+    float:right;
+    padding-top: 15px;
+    margin-right: 20px;
+
 }
 
 body{
-    background-color:aquamarine;
-    background-image: linear-gradient(270, lightcyan 0%, darkcyan 100%);
+    padding-top:30px;
+    background-image: url("./Assets/Images/Surprising-Facts-About-German-Shepherds.png");
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display:flex;
     align-items: center;
@@ -24,21 +48,18 @@ body{
 
 .quiz-container{
     background-color: lightgray;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px 4px black;
     width:450px;
     overflow:hidden;
+    visibility: hidden;
 }
 
 .quiz-header{
     padding: 3rem;
 }
 
-h2{
-    padding: 1rem;
-    text-align: center;
-    margin: 0
-}
+
 
 ul{
     padding: 0;
@@ -55,6 +76,7 @@ ul li label{
 
 button{
     background-color:darkslategrey;
+    border-radius: 0 0 10px 10px;
     color: white;
     border: none;
     display: block;
@@ -66,9 +88,25 @@ button{
 }
 
 #highscores{
-    width: 20%;
-    position:absolute;
+    display:inline-block;
+    width: 15%;
+    margin-top: 11px;
     justify-content:left;
+    float: left;
+    margin-right: 10px;
+    border-radius: 1em;
+}
+
+#startquiz{
+    border-radius: 1em;
+    width: 20%;
+    display:inline-block;
+    top: 0;
+    margin-top: 110px;
+    height: 10%;
+    width: 20%;
+    position: absolute;
+    visibility: visible;
 }
 
 button.hover{
@@ -83,4 +121,10 @@ button:focus{
 footer{
     position:absolute;
     bottom:0;
+    background-color:tan;
+    width:100%;
+    text-align: center;
+    height:10%;
+    justify-content:center;
+    padding: 35px;
 }

@@ -52,7 +52,7 @@ body{
     box-shadow: 0 0 10px 4px black;
     width:450px;
     overflow:hidden;
-    visibility: hidden;
+    display: none;
 }
 
 .quiz-header{

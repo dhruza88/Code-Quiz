@@ -5,12 +5,16 @@ function highScores() {
 
 var timeEl = document.querySelector(".time");
 var timerbutEL= document.querySelector("#startquiz");
+var quizbox = document.querySelector(".quiz-container")
 
 var secondsLeft = 120;
 
 timerbutEL.addEventListener("click",function(event){
     event.preventDefault()
     setTime();
+    timerbutEL.style.display= 'none';
+    quizbox.style.display= 'block';
+
 
 })
 function setTime()

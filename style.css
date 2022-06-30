@@ -4,6 +4,9 @@
     box-sizing: border-box;
 
 }
+.isHidden {
+    display: none !important;
+}
 
 header{
     position: absolute;
@@ -11,6 +14,7 @@ header{
     background-color:tan;
     width:100%;
     margin:0;
+  
 
 }
 
@@ -38,12 +42,20 @@ body{
     padding-top:30px;
     background-image: url("./Assets/Images/Surprising-Facts-About-German-Shepherds.png");
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
     display:flex;
     align-items: center;
     justify-content: center;
     height:100vh;
     overflow:hidden;
     margin:0;
+}
+
+main{
+    height:70vh;
+    overflow-y: auto;
+    overflow-x: clip;
 }
 
 .quiz-container{
@@ -53,13 +65,67 @@ body{
     width:450px;
     overflow:hidden;
     display: none;
+    height:70vh;
+}
+
+.paused {
+    cursor: progress !important;
+    pointer-events: none;
 }
 
 .quiz-header{
-    padding: 3rem;
+    padding: 2rem;
 }
 
+.quiz-header div {
+    height: 5vw;
+    width: 90%;
+    background-color: grey;
+    margin: auto;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin-bottom: 10%;
+    text-align: center;
+    display: grid;
+}
+.quiz-header div:hover {
+    box-shadow: 2px 2px 2px white;
+    border: 2px solid white;
+    cursor: pointer;
+}
+    .quiz-header div span {
+        font-size: 1.5em;
+        margin: auto;
+    }
 
+#highScore {
+    background-color: grey;
+    color: white;
+    width: 50%;
+    box-shadow: 2px 2px 20px black;
+    z-index: 999;
+}
+.highScoreEntries {
+    
+}
+
+.highScoreEntries h1{
+    margin-left: 260px;
+}
+.highScoreEntries ul li {
+ color: black;
+}
+
+.highScoreInput {
+    color: indigo;
+}
+#scoreName {
+    color: grey;
+    margin-left:38%
+}
+#submitName {
+    background-color: green;
+}
 
 ul{
     padding: 0;
@@ -67,16 +133,23 @@ ul{
 
 ul li{
     font-size: 1.3rem;
+    border-radius: 1em;
     margin-block-end: : 1rem 0;
+    width: 55%;
+    padding-top:10px;
+    margin-left:80px;
+    list-style-type: none;
+    height: 2%;
+    
 }
 
 ul li label{
     cursor: pointer;
 }
 
+ul li, 
 button{
     background-color:darkslategrey;
-    border-radius: 0 0 10px 10px;
     color: white;
     border: none;
     display: block;
@@ -85,6 +158,18 @@ button{
     font-size: 1.2rem;
     font-family: inherit;
     padding: 1.35rem;
+    border-radius: 1em;
+    width: 50%;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.button-invalid {
+    background-color: red !important;
+}
+.button-valid {
+    background-color: green !important;
 }
 
 #highscores{
@@ -109,13 +194,15 @@ button{
     visibility: visible;
 }
 
+ul li,
 button.hover{
     background-color:blue;
 }
 
+ul li,
 button:focus{
     outline: none;
-    background-color: green;
+    background-color: blue;
 }
 
 footer{
@@ -127,4 +214,5 @@ footer{
     height:10%;
     justify-content:center;
     padding: 35px;
+    
 }

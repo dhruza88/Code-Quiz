@@ -1,65 +1,3 @@
-
-function highScores() {
-
-}
-
-var timeEl = document.querySelector(".time");
-var timerbutEL= document.querySelector("#startquiz");
-var quizbox = document.querySelector(".quiz-container")
-
-var secondsLeft = 120;
-
-timerbutEL.addEventListener("click",function(event){
-    event.preventDefault()
-    setTime();
-    timerbutEL.style.display= 'none';
-    quizbox.style.display= 'block';
-
-
-})
-function setTime()
-{
-    var timeInterval = setInterval(function () 
-    {
-        // As long as the `timeLeft` is greater than 1
-        if (secondsLeft > 0) 
-        {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
-        timeEl.textContent = secondsLeft + ' seconds remaining';
-        // Decrement `timeLeft` by 1
-        secondsLeft--;
-        } else
-        {
-        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        timeEl.textContent = '';
-        // Use `clearInterval()` to stop the timer
-        clearInterval(timeInterval);
-        sendMessage("Times run out");
-     
-        }
-    }, 1000);
-}
-
-function sendMessage(){
-    alert("Bummer");
-}  
-
-// function setTime() 
-// {
-//     // Sets interval in variable
-//     var timerInterval = setInterval(function() {
-//       secondsLeft--;
-//       timeEl.textContent= secondsLeft
-  
-//       if(secondsLeft === 0) {
-//         // Stops execution of action at set interval
-//         clearInterval(timerInterval);
-        
-//       }
-  
-//    }, 100);
-//}
-
 const myQuestions = [
     {
         question: "What is the original color of German Shepherds",
@@ -107,96 +45,184 @@ const myQuestions = [
     }
 ];
 
-const quiz = document.getElementById('quiz')
-const answerEls = document.querySelectorAll('answer')
-const questionEl = document.getElementById('question')
-const a_text = document.getElementById('a_text')
-const b_text = document.getElementById('b_text')
-const c_text = document.getElementById('c_text')
-const d_text = document.getElementById('d_text')
-const submitButton = document.getElementById('submit')
+const quiz = document.getElementById('quiz');
+const highScore = document.getElementById('highScore');
+const questionEl = document.getElementById('question');
+const a_text = document.getElementById('a_text');
+const b_text = document.getElementById('b_text');
+const c_text = document.getElementById('c_text');
+const d_text = document.getElementById('d_text');
+const submitButton = document.getElementById('submit');
 
-let currentQuiz = 0
-let score = 0
+var timeEl = document.querySelector(".time");
+var timerbutEL= document.querySelector("#startquiz");
+var quizbox = document.querySelector(".quiz-container");
+
+var secondsLeft = 240;
+let isPaused = false;
+let currentQuiz = 0;
+let score = 0;
+
+let existingSaves =
+    localStorage.getItem('HighScores')?.length > 0 ?
+    JSON.parse(localStorage.getItem('HighScores')) : 
+    [];
+
+timerbutEL.addEventListener("click",function(event){
+    event.preventDefault();
+    setTime();
+    timerbutEL.style.display= 'none';
+    quizbox.style.display= 'block';
+
+
+})
+function setTime()
+{
+    var timeInterval = setInterval(function () 
+    {
+        if (!isPaused) {
+            // As long as the `timeLeft` is greater than 1
+            if (secondsLeft > 0) {
+                // Set the `textContent` of `timerEl` to show the remaining seconds
+                timeEl.textContent = secondsLeft + ' seconds remaining';
+                // Decrement `timeLeft` by 1
+                secondsLeft--;
+            } else {
+                // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+                timeEl.textContent = '';
+                // Use `clearInterval()` to stop the timer
+                clearInterval(timeInterval);
+                sendMessage("Times run out");    
+            }
+        }
+    }, 1000);
+}
+
+function sendMessage(){
+    alert("Bummer");
+}  
 
 startQuiz()
 
 function startQuiz() {
-    deselectAnswers()
-
-    const currentQuizData = myQuestions[currentQuiz]
-
-    questionEl.innerText = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
+    this.clearAnswersSetQuestion(myQuestions[currentQuiz]);
 }
 
-function deselectAnswers() 
-{
-    answerEls.forEach(answerEl => answerEl.checked = false)
-}
-
-function selected() 
-{
-    let answer
-    answerEls.forEach(answerEl => 
-        {
-            if (answerEl.checked) 
-            {
-            answer = answerEl.id
-            }
-        })
-        return answer
-}
-
-    
-
-
-
-submitButton.addEventListener('click', () =>
-{
-    const answer = selected()
-    if (answer) 
-    {
-        if (answer === myQuestions[currentQuiz].correct) 
-        {
-             score++
-        }
-
-        currentQuiz++
-        console.log(currentQuiz)
-
-        if (currentQuiz < myQuestions.length) 
-        {
-            startQuiz()
-        } else 
-        {
-            quiz.innerHTML = `
-                        <h2> You answered ${score}/${myQuestions.length}questions correctly</h2>
-                               
-                        <button onclick="location.reload()">Reload</button>
-                        `
-        }
+function setQuestion(currentQuizData) {
+    if (currentQuizData.question) {
+        questionEl.innerText = currentQuizData.question;
+        a_text.innerText = currentQuizData.a;
+        b_text.innerText = currentQuizData.b;
+        c_text.innerText = currentQuizData.c;
+        d_text.innerText = currentQuizData.d;
     }
+    quiz.classList.remove('paused');
+    isPaused = false;
+}
+
+function clearAnswersSetQuestion(currentQuizData) {
+    this.setQuestion(currentQuizData);
+}
+
+function answerSelected(selectedAnswer) {
+    if (!isPaused) {
+        quiz.classList.add('paused');
+        const correctAnswer = myQuestions[currentQuiz].correct === selectedAnswer;
+        if(correctAnswer) {
+            score += 1;
+        } else {
+            secondsLeft= secondsLeft - 10;
+        }
+        currentQuiz += 1;
+        this.displayAnswer(correctAnswer, selectedAnswer);
+    }
+}
+function displayAnswer(correctAnswer, selectedAnswer) {
+    // Set color of button to red or green for a certain amount of time
+    const classValid = correctAnswer ? 'button-valid' : 'button-invalid';
+    const elId = `btn${selectedAnswer.toString().toUpperCase()}`
+    const selElement = document.getElementById(elId);
+    selElement.classList.add(classValid);
+
+    isPaused = true;
+    setTimeout(() => {        
+        const continueQuiz = currentQuiz <= myQuestions.length-1;
+        if(!continueQuiz) {
+            // this.loadHighScoreEntries(true);
+            this.toggleHighScoreHome(true);
+        } else {
+            selElement.classList.remove(classValid);
+            setTimeout(() => {
+                this.clearAnswersSetQuestion(myQuestions[currentQuiz]);
+            }, 500);            
+        }
+    }, 1500);
+}
+function scoreScreen() {
+    timerbutEL.style.display = 'none';
+    quiz.classList.add('isHidden');
+    score = (score / (myQuestions.length))*100;
+    document.getElementById('scoreVal').innerText = score;
+    highScore.classList.remove('isHidden');
+    if (score > 0) {
+        document.getElementById('highScoreComponent').classList.remove('isHidden');
+    }
+}
+   
+function submitHighScore() {
+    document.getElementById('highScoreComponent').classList.add('isHidden');
+    const newSave = { 
+        name: document.getElementById('scoreName').value,
+        finScore: score        
+    };
+    existingSaves.push(newSave);
+
+    this.sortSaves();  
+
+    localStorage.setItem('HighScores', JSON.stringify(existingSaves));
+    alert('high score submited!');
+    this.loadHighScoreEntries(false);
+}
+
+function sortSaves() {
+    if(existingSaves.length > 1) {
+        existingSaves.sort((a,b) => b.finScore - a.finScore);
+    }
+}
+
+function toggleHighScoreHome(showScreen) {
+    const highScoreButton = document.getElementById('highscores');
+    const isHome = highScoreButton.innerText === 'View Highscores' ? true : false;
+    if (isHome) {
+        this.sortSaves();
+        highScoreButton.innerText = 'Go Home';
+        this.loadHighScoreEntries(showScreen);
+    } else {
+        highScoreButton.innerText = 'View Highscores';
+        window.location.reload();
+    }
+}
+
+function loadHighScoreEntries(showScreen) {
+    let highScoreSheet = document.getElementById('highScoreSheet');
+    highScoreSheet.innerHTML = '';
+    let scoreSheetHml = '';
+    if (existingSaves.length > 0) {
+        existingSaves.forEach((saveEntry) => {
+            scoreSheetHml += '<li><span>' + saveEntry.name + '</span><span>' +  '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;' + saveEntry.finScore + '</span></li>';
+        });
+        if (scoreSheetHml.length > 0) {
+            highScoreSheet.innerHTML = scoreSheetHml;
+        }
+    } else {
+        // 
+        // hide UL item?
+        // 
+    }
+    if (showScreen) {
+        this.scoreScreen();
+    }
+}
+
            
         
-})
-//create a box for quiz to appear in -done
-
-//create a sub box for the question to appear ind -done
-
-//create another sub box for the selections to appear in -done
-
-//when select the correct answer move onto next question
-
-//when enter inproper answer take time from timer and reanswer
-
-//display correct or incorrect below the boxes
-
-//at quiz finish, display your score
-
-//enter in your name to go along with your score to be stored in a High Score sheet
-
-//create a timer to be going on during the quiz, starts at 0, begins once you start quiz

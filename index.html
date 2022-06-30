@@ -13,53 +13,50 @@
 
 <header>
     <h1>Welcome to a Quiz About German Shepherds</h1>
-    <button id="highscores">View Highscores</button>
-    <h3 class="time">Remaining seconds left</h3>
+    <button onclick="toggleHighScoreHome(true)" id="highscores">View Highscores</button>
+    <h3 class="time"></h3>
 </header>
 
-<div id="quiz"></div>
+
 
 <button id="startquiz">Press Here to start</button>
 
 <body>
-    
-    <div class="quiz-container" id="quiz">
-        <div class="quiz-header">
-            <h2 id="question">Question Text</h2>
-            <ul>
-                <li>
-                    <input type="radio" name="answer" id="a" class="answer">
-                    <label for="a" id="a_text">Answer</label>
-                </li>
-
-                <li>
-                    <input type="radio" name="answer" id="b" class="answer">
-                    <label for="b" id="b_text">Answer</label>
-                </li>
-
-                <li>
-                    <input type="radio" name="answer" id="c" class="answer">
-                    <label for="c" id="c_text">Answer</label>
-                </li>
-
-                <li>
-                    <input type="radio" name="answer" id="d" class="answer">
-                    <label for="d" id="d_text">Answer</label>
-                </li>
-
-            </ul>
+    <main id="quiz">
+        <div class="quiz-container" id="quiz">
+            <div class="quiz-header">
+                <h2 id="question">Question Text</h2>
+                <div id="btnA" onclick="answerSelected('a')">
+                    <span for="a" id="a_text">Answer</span>
+                </div>
+                <div id="btnB" onclick="answerSelected('b')">
+                    <span for="b" id="b_text">Answer</span>
+                </div>
+                <div id="btnC" onclick="answerSelected('c')">
+                    <span for="c" id="c_text">Answer</span>
+                </div>
+                <div id="btnD" onclick="answerSelected('d')">
+                    <span for="d" id="d_text">Answer</span>
+                </div>
+            </div>
         </div>
+    </main>
+    <main id="highScore" class="isHidden">
+        <div class="highScoreEntries">
+            <h1>You scored <span id="scoreVal">#</span>%</h1>
+            <ul id="highScoreSheet"></ul>
+        </div>
+        <div id="highScoreComponent" class="highScoreInput isHidden">
+            <input id="scoreName" type="text" placeholder="Enter your Name"/>
+            <button id="submitName" onClick="submitHighScore()">Submit</button>
+        </div>
+    </main>
 
-        <button id="submit">Submit</button>
-
-    </div>
-
- 
 
 
 
 
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 

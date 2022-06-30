@@ -99,7 +99,7 @@ function setTime()
 }
 
 function sendMessage(){
-    alert("Bummer");
+    alert("Bummer! Your out of time");
 }  
 
 startQuiz()

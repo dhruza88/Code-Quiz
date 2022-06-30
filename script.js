@@ -121,8 +121,8 @@ function setQuestion(currentQuizData) {
     isPaused = false;                                                                                                             //ensures that the freeze from wrong/correct answer is off
 }
 
-function clearAnswersSetQuestion(currentQuizData) {
-    this.setQuestion(currentQuizData);
+function clearAnswersSetQuestion(currentQuizData) {                                                                               //clear the highlight color from previous selected answer                                                                                 
+    this.setQuestion(currentQuizData);                                                                                            //place new question and answers
 }
 
 function answerSelected(selectedAnswer) {
@@ -147,17 +147,17 @@ function displayAnswer(correctAnswer, selectedAnswer) {
 
     isPaused = true;                                                                                                              //pause the quiz
     setTimeout(() => {                                                                                                            
-        const continueQuiz = currentQuiz <= myQuestions.length-1;
-        if(!continueQuiz) {
+        const continueQuiz = currentQuiz <= myQuestions.length-1;                                                                 //creats continueQuiz to make sure you don't go past array length
+        if(!continueQuiz) {                                                                                                       // if continqueQuiz has gone past length, reload screen
             // this.loadHighScoreEntries(true);
-            this.toggleHighScoreHome(true);
+            this.toggleHighScoreHome(true);                                                                                       //brings up the high score screen
         } else {
             selElement.classList.remove(classValid);
             setTimeout(() => {
-                this.clearAnswersSetQuestion(myQuestions[currentQuiz]);
-            }, 500);            
+                this.clearAnswersSetQuestion(myQuestions[currentQuiz]);                                                           //clears any previous selection after timeout of selected answer
+            }, 500);                                                                                                              //times out after 500 milliseconds of background color for selected answer            
         }
-    }, 1500);
+    }, 1500);                                                           
 }
 function scoreScreen() {
     timerbutEL.style.display = 'none';                                                                                            //hides the start button

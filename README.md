@@ -12,6 +12,7 @@ i was tasked with using local storage to be able to store High Scores and user n
 
 link to deployed website below:
 
+https://dhruza88.github.io/Code-Quiz/
 
 links to screenshots:
 

@@ -173,47 +173,47 @@ function scoreScreen() {
 function submitHighScore() {
     document.getElementById('highScoreComponent').classList.add('isHidden');
     const newSave = { 
-        name: document.getElementById('scoreName').value,
-        finScore: score        
+        name: document.getElementById('scoreName').value,                                                                         //sets name to username inputted
+        finScore: score                                                                                                           //sets your highscore to the score from game        
     };
-    existingSaves.push(newSave);
+    existingSaves.push(newSave);                                                                                                  //adds user entry to the existing array of scores
 
     this.sortSaves();  
 
-    localStorage.setItem('HighScores', JSON.stringify(existingSaves));
-    alert('high score submited!');
+    localStorage.setItem('HighScores', JSON.stringify(existingSaves));                                                           //creates multiple strings from the array of scores
+    alert('high score submited!');                                                                                               //prompts after the high score sheet has been updated with new data
     this.loadHighScoreEntries(false);
 }
 
 function sortSaves() {
     if(existingSaves.length > 1) {
-        existingSaves.sort((a,b) => b.finScore - a.finScore);
+        existingSaves.sort((a,b) => b.finScore - a.finScore);                                                                    //sorts scores by highest to low
     }
 }
 
 function toggleHighScoreHome(showScreen) {
-    const highScoreButton = document.getElementById('highscores');
+    const highScoreButton = document.getElementById('highscores');                                                               //creating the toggle button for home/highscore
     const isHome = highScoreButton.innerText === 'View Highscores' ? true : false;
-    if (isHome) {
+    if (isHome) {                                                                                                                //testing the condition, for home vs highscore
         this.sortSaves();
-        highScoreButton.innerText = 'Go Home';
+        highScoreButton.innerText = 'Go Home';                                                                                  //if on highscore, button shows goes home                                               
         this.loadHighScoreEntries(showScreen);
-    } else {
-        highScoreButton.innerText = 'View Highscores';
+    } else {                                                        
+        highScoreButton.innerText = 'View Highscores';                                                                         //if on home view highscore page
         window.location.reload();
     }
 }
 
 function loadHighScoreEntries(showScreen) {
-    let highScoreSheet = document.getElementById('highScoreSheet');
-    highScoreSheet.innerHTML = '';
-    let scoreSheetHml = '';
-    if (existingSaves.length > 0) {
+    let highScoreSheet = document.getElementById('highScoreSheet');                                                                 //links to the ul on the html
+    highScoreSheet.innerHTML = '';                                                                                                  //sets the text to blank
+    let scoreSheetHml = '';                                                                                                         //sets string to blank
+    if (existingSaves.length > 0) {                                                                                                 //as long as 1 entry has been saved
         existingSaves.forEach((saveEntry) => {
-            scoreSheetHml += '<li><span>' + saveEntry.name + '</span><span>' +  '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;' + saveEntry.finScore + '</span></li>';
+            scoreSheetHml += '<li><span>' + saveEntry.name + '</span><span>' +  '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;'+ '&nbsp;' + saveEntry.finScore + '</span></li>';                                                                                                          //sets string on newly created ul obj
         });
         if (scoreSheetHml.length > 0) {
-            highScoreSheet.innerHTML = scoreSheetHml;
+            highScoreSheet.innerHTML = scoreSheetHml;                                                                    //as long as one entry has been saved, display
         }
     } else {
         // 

@@ -58,7 +58,7 @@ var timeEl = document.querySelector(".time");
 var timerbutEL= document.querySelector("#startquiz");
 var quizbox = document.querySelector(".quiz-container");
 
-var secondsLeft = 240;
+var secondsLeft = 120;
 let isPaused = false;
 let currentQuiz = 0;
 let score = 0;
@@ -92,7 +92,8 @@ function setTime()
                 timeEl.textContent = '';
                 // Use `clearInterval()` to stop the timer
                 clearInterval(timeInterval);
-                sendMessage("Times run out");    
+                sendMessage("Times run out"); 
+                window.location.reload();   
             }
         }
     }, 1000);

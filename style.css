@@ -40,7 +40,7 @@ h3{
 
 body{
     padding-top:30px;
-    background-image: url("./Assets/Images/Surprising-Facts-About-German-Shepherds.png");
+    background-image: url('./Assets/Images/Surprising-Facts-About-German-Shepherds.png');
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-repeat:no-repeat;
     background-size:100% 100%;

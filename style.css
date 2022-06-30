@@ -104,6 +104,7 @@ main{
     width: 50%;
     box-shadow: 2px 2px 20px black;
     z-index: 999;
+    border-radius: 20px;
 }
 .highScoreEntries {
     
